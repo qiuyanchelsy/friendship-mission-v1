@@ -10,3 +10,5 @@
 .v2-stage .vn-person.speaking{filter:drop-shadow(0 0 10px #fff1bb70)}
 .v2-stage.speaker-center .speaker{margin-inline:auto}
 @media(max-width:760px){.v2-stage .partner-person{right:-9%;top:75px;bottom:auto;height:430px;width:62%}}
+
+.art-stack{display:block;position:relative;width:100%;height:100%}.art-stack>.art-new{position:absolute;inset:0;opacity:0}.art-stack.expression-ready>.art-new{opacity:1}.art-stack.expression-ready>.art-base{opacity:0}.photo-pair>.art-stack{width:65%;height:115%;flex:none;margin-left:-7%}.photo-pair>.art-stack>img{width:100%;height:100%;margin-left:0}

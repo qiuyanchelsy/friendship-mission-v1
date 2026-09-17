@@ -12,13 +12,16 @@ const BASE_FACING={xiaoyong:'left',xiaoqing:'right',ale:'right',mimi:'left',axin
 function route(){return ROUTES[avatar(state.actor).id];}
 function partnerRoute(){return ROUTES[avatar(1-state.actor).id];}
 function facingClass(c,side,mood='neutral'){const source=mood==='happy'?(c.id==='axing'?'left':'right'):BASE_FACING[c.id];return source===(side==='left'?'right':'left')?'':'mirror';}
-function characterImage(c,side,mood='neutral',cls=''){return `<img class="${cls} ${facingClass(c,side,mood)}" data-character-id="${c.id}" data-side="${side}" data-facing="${side==='left'?'right':'left'}" data-expression="${mood}" src="${sprite(c,mood)}" alt="${c.name} · ${mood==='happy'?'開心回應':'聆聽'} · 面向${side==='left'?'右':'左'}方">`;}
+function characterImage(c,side,mood='neutral',cls=''){
+ if(mood==='happy')return '<span class="art-stack '+cls+'">'+characterImage(c,side,'neutral','art-base')+characterImage(c,side,'happy-loaded','art-new')+'</span>';
+ const loaded=mood==='happy-loaded';if(loaded)mood='happy';
+ return `<img class="${cls} ${facingClass(c,side,mood)}" data-character-id="${c.id}" data-side="${side}" data-facing="${side==='left'?'right':'left'}" data-expression="${mood}" ${loaded?'onload="this.parentElement.classList.add(\'expression-ready\')"':''} src="${sprite(c,mood)}" alt="${c.name} · ${mood==='happy'?'開心回應':'聆聽'} · 面向${side==='left'?'右':'左'}方">`;}
 function configureStory(){
  const a=route(),b=partnerRoute(),name=detective();
  STORY.intro=[{speaker:'旁白',text:`新學期的第一天，${actor()}走進五年級教室。窗邊的${name}${b.busy}。`},{speaker:'我的心聲',text:a.thought},{speaker:'旁白',text:`${actor()}注意到${name}的${b.object}，決定從一個小小的招呼開始。`}];
  STORY.opening=[
  {text:`「${a.greeting}」`,reply:`「我叫${name}！我喜歡${b.interest}。你呢？」`,feedback:'介紹自己，也留一個容易回答的問題，對方就有機會把話接回來。',expression:'happy',gesture:`${name}轉過身，笑著回應。`},
- {text:`「${b.observation}」`,reply:`「${b.answer}對了，我叫${name}！」`,feedback:'從看到的東西開始聊，再聽對方怎麼說。不用假裝自己也有相同興趣。',expression:'happy',gesture:`${name}指了指自己的${b.object}。`},
+ {text:`「${b.observation}」`,reply:`「${b.answer}對了，我叫${name}！」`,feedback:'從看到的東西開始聊，再聽對方怎麼說。不用假裝自己也有相同興趣。',expression:'happy',gesture:`${name}笑著聊起自己的${b.object}。`},
  {text:'先看著對方，暫時不說話。',reply:'「嗯……你想找我聊天嗎？可以慢慢說。」',feedback:'先觀察也可以。準備好後，加一句「嗨」，就能讓對方知道你的意思。',expression:'neutral',gesture:`${name}停下動作，等著${actor()}。`},
  {text:'「欸！」',reply:'「嗯？你是在叫我嗎？」',feedback:'對方注意到你了，卻還不知道你想說什麼。可以再介紹自己，或說明你看到的事情。',expression:'neutral',gesture:`${name}抬起頭，還不確定發生什麼事。`}];
  STORY.next=[
