@@ -20,7 +20,7 @@ function renderV2(){
  const routed=routePage();if(routed!==null)return routed;
  if(state.page==='passSelect')return `<section class="handoff"><div class="handoff-inner">${roleChip(0,'角色已選好')}<h2>換玩家 2 選角色。</h2><p>把 iPad 交給隊友，<br>一起組成今天的搭檔。</p>${primary('玩家 2 準備好了','v2_second')}</div></section>`;
  if(state.page==='confirmPair')return `<section class="pair-world"><img class="selection-background" src="assets/vn-classroom.webp" alt="新學期的教室"><div class="pair-heading"><p class="kicker">雙人確認</p><h1>今天，我們一起出發。</h1><p>角色跟著你；行動者與友情偵探可以交換。</p></div><div class="pair-cards">${[0,1].map(p=>`<article>${characterImage(avatar(p),p===0?"left":"right","neutral","pair-sprite")}<div><span>玩家 ${p+1}</span><h2>${avatar(p).name}</h2><p>${p===state.actor?'行動者 · 先決定怎麼開口':'友情偵探 · 想想自己的偏好'}</p><button class="secondary" data-edit="${p}">重選角色</button></div></article>`).join('')}</div><div class="pair-footer"><button class="secondary" data-action="v2_swapRoles">交換這一輪任務</button>${primary('搭檔確認，走進教室','v2_begin')}</div></section>`;
- if(state.page==='speakNext')return stage({mode:'story-screen',step:4,dialogue:dialogue(actor(),personalize(STORY.next[state.next].text),'v2_hearNext','聽聽他的回應')});
+ if(state.page==='speakNext')return stage({mode:'story-screen',step:4,dialogue:dialogue(actor(),personalize(STORY.next[state.next].text),'v2_hearNext','聽聽對方的回應')});
  if(state.page==='complete')return memoryPage();
  return null;
 }

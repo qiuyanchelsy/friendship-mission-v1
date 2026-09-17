@@ -31,8 +31,8 @@ function activeMood(p,speaker){if(['noticeCharm','invitePartner','acceptInvite',
 function routePage(){
  const a=route(),b=partnerRoute();
  if(state.page==='speakA')return stage({mode:'story-screen',dialogue:dialogue(state.choice===2?'我的心聲':actor(),state.choice===2?'我先想一想，準備好再開口。':STORY.opening[state.choice].text,'v2_hearOpening',`聽聽${detective()}怎麼說`)});
- if(state.page==='noticeCharm')return stage({mode:'story-screen',step:5,dialogue:dialogue(detective(),`「你喜歡${a.interest}呀。我也想多聽一點！」`,'invitePartner','說出一個小邀請',{hint:`${detective()}記住了${actor()}剛剛分享的事。`})});
- if(state.page==='invitePartner')return stage({mode:'story-screen',step:5,dialogue:dialogue(actor(),`「${a.invite}」`,'acceptInvite','給對方時間回答')});
+ if(state.page==='noticeCharm')return stage({mode:'story-screen',step:5,dialogue:dialogue(detective(),`「你的${a.object}很特別。你喜歡${a.interest}嗎？」`,'invitePartner','說出一個小邀請',{hint:`${detective()}注意到${actor()}的${a.object}。`})});
+ if(state.page==='invitePartner')return stage({mode:'story-screen',step:5,dialogue:dialogue(actor(),`「對，我喜歡${a.interest}。${a.invite}」`,'acceptInvite','給對方時間回答')});
  if(state.page==='acceptInvite')return stage({mode:'story-screen',step:5,dialogue:dialogue(detective(),`「可以呀！不過我們先做一小段就好。之後我也想和你聊聊${b.interest}。」`,'ending','記住彼此的想法',{hint:'答應一起試試，也可以說出自己的時間與想法。'})});
  if(state.page==='ending')return stage({mode:'story-screen',step:5,dialogue:dialogue('我的心聲',a.ending,'practice','換我們真的說說看',{thought:true,hint:`${actor()}與${detective()}，留下了第一個共同約定。`})});
  return null;
