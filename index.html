@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#153d50">
+  <title>友情任務｜新朋友大挑戰</title>
+  <meta name="description" content="五年級雙人友情冒險。兩個人，一台 iPad，練習勇敢開口、接住話題。六大友情任務與最終挑戰。">
+  <link rel="stylesheet" href="novel.css"><link rel="stylesheet" href="campaign.css"><script src="chapters.js" defer></script><script src="campaign.js" defer></script><script src="novel.js" defer></script>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="#" aria-label="友情任務首頁"><span class="brand-mark">友</span><span>友情任務<small>新朋友大挑戰</small></span></a><div class="top-actions"><span class="edition">六大任務＋最終挑戰</span><button class="icon-button" id="settings" aria-label="開啟教師設定">設定</button></div></header>
+<main id="app" tabindex="-1"></main>
+<footer><span>彩虹小學 · 五年級</span><span>兩個人，一起練習，也一起成長。</span></footer>
+<dialog id="settings-dialog"><form method="dialog"><div class="dialog-head"><h2>教師設定</h2><button class="icon-button" aria-label="關閉設定">關閉</button></div><label>討論時間<select id="discussion-setting"><option value="20">20 秒</option><option value="10">10 秒</option><option value="30">30 秒</option><option value="0">不計時</option></select></label><label class="check-label"><input type="checkbox" id="sound-setting"> 開啟輕柔音效</label><p>不登入、不錄音。暱稱與選擇僅保留在本次頁面中，重新整理會重新開始。</p><button class="primary">完成設定</button></form></dialog>
+<dialog id="restart-dialog"><h2>要重新開始嗎？</h2><p>這一輪尚未完成的選擇會清除，已完成的關卡標記會保留。</p><div class="button-row"><button class="secondary" id="cancel-restart">繼續這一輪</button><button class="primary" id="confirm-restart">重新開始</button></div></dialog>
+</body></html>
