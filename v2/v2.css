@@ -14,3 +14,6 @@
 @media(max-width:760px){.v2-stage .partner-person{right:-9%;top:75px;bottom:auto;height:430px;width:62%}}
 
 .art-stack{display:block;position:relative;width:100%;height:100%}.art-stack>.art-new{position:absolute;inset:0;opacity:0}.art-stack.expression-ready>.art-new{opacity:1}.art-stack.expression-ready>.art-base{opacity:0}.photo-pair>.art-stack{width:65%;height:115%;flex:none;margin-left:-7%}.photo-pair>.art-stack>img{width:100%;height:100%;margin-left:0}
+
+/* Keep scene art in front of the stage background and behind the dialogue. */
+.vn-stage .backdrop{z-index:0}.vn-stage .world-shade{z-index:1}.vn-stage .character,.vn-stage .partner-person{z-index:2}.vn-stage .choice-panel,.vn-stage .reveal-panel,.vn-stage .practice-panel,.vn-stage .complete-panel,.vn-stage .scene-caption,.vn-stage .later-choice-panel,.vn-stage .activity-panel{z-index:3}
