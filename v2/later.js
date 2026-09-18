@@ -77,7 +77,7 @@ function laterAction(b){
  if(b.dataset.laterDecision!==undefined){campaign.decision=+b.dataset.laterDecision;render();return true;}
  if(b.dataset.laterMini!==undefined){const i=+b.dataset.laterMini,n=campaign.mini.indexOf(i);if(n>=0)campaign.mini.splice(n,1);else if(campaign.mini.length<3)campaign.mini.push(i);render();return true;}
  const a=b.dataset.action;if(!a?.startsWith('v2_'))return false;
- if(a==='v2_map'){goto('chapterMap');return true;}
+  if(a==='v2_map'){if(campaign.level<2)campaign.level=2;goto('chapterMap');return true;}
  if(a==='v2_laterStart'){resetLater();goto('laterIntro');return true;}
  if(a==='v2_laterIntro'){if(state.beat<2){state.beat++;render();}else goto('laterOpening');return true;}
  if(a==='v2_laterOpeningLock'){if(campaign.opening!==null)goto('laterOpeningResult');return true;}
