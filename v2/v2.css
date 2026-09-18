@@ -17,3 +17,6 @@
 
 /* Keep scene art in front of the stage background and behind the dialogue. */
 .vn-stage .backdrop{z-index:0}.vn-stage .world-shade{z-index:1}.vn-stage .character,.vn-stage .partner-person{z-index:2}.vn-stage .choice-panel,.vn-stage .reveal-panel,.vn-stage .practice-panel,.vn-stage .complete-panel,.vn-stage .scene-caption,.vn-stage .later-choice-panel,.vn-stage .activity-panel{z-index:3}
+
+/* Positive layers prevent a positioned scene image from falling behind its stage paint. */
+.vn-stage .backdrop{z-index:1}.vn-stage .world-shade{z-index:2}.vn-stage .vn-person{z-index:3}.vn-stage .choice-panel,.vn-stage .reveal-panel,.vn-stage .practice-panel,.vn-stage .complete-panel,.vn-stage .scene-caption,.vn-stage .later-choice-panel,.vn-stage .activity-panel{z-index:4}
