@@ -9,6 +9,11 @@ const actor=()=>state.names[state.actor],detective=()=>state.names[1-state.actor
 const personalize=s=>s.replace('{name}',actor());
 function primary(text,action,disabled=false){return `<button class="primary" data-action="${action}" ${disabled?'disabled':''}>${esc(text)}<span aria-hidden="true">▸</span></button>`;}
 function stage({panel='',dialogue='',mode='',expression='neutral',step=1,turn='兩人一起',showCharacter=true,location=''}){
+ const hasLater=typeof later==='function'&&state.page.startsWith('later');
+ const sceneTitle=hasLater?later().title:route().title;
+ const sceneLocation=hasLater?later().place:'彩虹小學 · 五年級教室';
+ const sceneNumber=hasLater?String(campaign.level).padStart(2,'0'):'01';
+ const sceneBackground=hasLater?`assets/${later().scene}`:'assets/vn-classroom.webp';
  const raw=dialogue.match(/data-speaker="([^"]+)"/)?.[1]||'';
  const speaker=raw==='我的心聲'?actor():raw==='換個角度想'?detective():raw;
  const active=state.names.indexOf(speaker);
@@ -16,7 +21,7 @@ function stage({panel='',dialogue='',mode='',expression='neutral',step=1,turn='�
  const duo=mode==='story-screen',single=['choice-screen','practice-screen','reveal-screen'].includes(mode);
  const figures=!showCharacter?'':duo?[0,1].map(i=>'<div class="vn-person '+(i===0?'player-person':'partner-person')+' '+(active===i?'speaking':'listening')+'">'+characterImage(avatar(i),i===0?'left':'right',activeMood(i,speaker))+'</div>').join(''):single?'<div class="vn-person solo-person">'+characterImage(avatar(p),'left')+'</div>':'';
  const position=active===0?'speaker-left':active===1?'speaker-right':'speaker-center';
- return '<section class="vn-stage v2-stage '+mode+' '+position+'" aria-label="第一關：'+route().title+'"><img class="backdrop" src="assets/vn-classroom.webp" alt="陽光灑落的五年級教室"><div class="world-shade" aria-hidden="true"></div><div class="hud"><div class="location"><span class="chapter">01</span><span>'+esc(route().title)+'<small>'+esc(actor())+' ＆ '+esc(detective())+'</small></span></div><div class="turn-indicator"><img class="inline-avatar" src="'+portrait(avatar(active>=0?active:p))+'" alt=""><span>'+esc(turn)+'<small>'+esc(active>=0?state.names[active]:state.names[p])+' · '+step+' / 6</small></span></div></div>'+figures+panel+dialogue+'</section>';
+ return '<section class="vn-stage v2-stage '+mode+' '+position+'" aria-label="第'+sceneNumber+'關：'+sceneTitle+'"><img class="backdrop" src="'+sceneBackground+'" alt="'+esc(sceneLocation)+'"><div class="world-shade" aria-hidden="true"></div><div class="hud"><div class="location"><span class="chapter">'+sceneNumber+'</span><span>'+esc(sceneTitle)+'<small>'+esc(actor())+' ＆ '+esc(detective())+'</small></span></div><div class="turn-indicator"><img class="inline-avatar" src="'+portrait(avatar(active>=0?active:p))+'" alt=""><span>'+esc(turn)+'<small>'+esc(active>=0?state.names[active]:state.names[p])+' · '+step+' / 6</small></span></div></div>'+figures+panel+dialogue+'</section>';
 }
 function dialogue(speaker,text,action,label,{hint='',extra='',disabled=false,thought=false}={}){
  return `<section class="dialogue ${thought?'thought':''}" data-speaker="${esc(speaker)}" aria-label="${esc(speaker)}的對話"><div class="speaker">${esc(speaker==='我的心聲'?actor()+' · 心聲':speaker==='換個角度想'?detective()+' · 想一想':speaker)}</div><div class="dialogue-main"><p class="dialogue-text" tabindex="-1">${esc(text)}</p>${hint?`<p class="dialogue-hint">${esc(hint)}</p>`:''}${extra}</div><div class="dialogue-controls">${primary(label,action,disabled)}</div></section>`;
@@ -40,6 +45,7 @@ function render(){
  case 'practice':{const first=state.practiceRound===0?actor():detective(),second=state.practiceRound===0?detective():actor();html=stage({mode:'practice-screen',step:5,turn:`真人挑戰 · ${state.practiceRound+1} / 2`,panel:`<section class="practice-panel glass-panel"><p class="kicker">把故事帶回身邊</p><div class="practice-step"><b>先說</b><div><h3>${esc(first)}</h3><p>用一句話和 ${esc(second)} 開始聊天。</p></div></div><div class="practice-step"><b>接話</b><div><h3>${esc(second)}</h3><p>自然回答一句，也可以說「讓我想一下」。</p></div></div></section>`,dialogue:dialogue('搭檔時間',state.practiceRound===0?'現在，看看坐在你旁邊的搭檔。把剛剛想到的那句話，真的說出口。':'交換了！剛剛回答的人，這次先開口。說一句，也好好聽一句。','practiceDone',state.practiceRound===0?'說過了，交換':'兩輪都完成了',{hint:'可以照著提示說。不錄音、不評分，不用演得很厲害。'})});break;}
  }
  app.innerHTML=html;document.body.dataset.page=state.page;
+ const edition=document.querySelector('.edition');if(edition)edition.textContent=`版本2 · 第 ${campaign.level||1} 關`;
  if(state.page==='reveal')startTimer();
 
 }
